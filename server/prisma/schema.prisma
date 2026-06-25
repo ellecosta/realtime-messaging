@@ -1,0 +1,94 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Role {
+  OWNER
+  MEMBER
+}
+
+model User {
+  id           String   @id @default(uuid())
+  email        String   @unique
+  username     String
+  passwordHash String
+  createdAt    DateTime @default(now())
+
+  ownedServers   Server[]       @relation("ServerOwner")
+  memberships    ServerMember[]
+  messages       Message[]
+  createdInvites Invite[]
+}
+
+model Server {
+  id        String   @id @default(uuid())
+  name      String
+  ownerId   String
+  createdAt DateTime @default(now())
+
+  owner    User           @relation("ServerOwner", fields: [ownerId], references: [id])
+  members  ServerMember[]
+  channels Channel[]
+  invites  Invite[]
+}
+
+model ServerMember {
+  id       String   @id @default(uuid())
+  serverId String
+  userId   String
+  role     Role     @default(MEMBER)
+  joinedAt DateTime @default(now())
+
+  server Server @relation(fields: [serverId], references: [id], onDelete: Cascade)
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([serverId, userId])
+}
+
+model Channel {
+  id        String   @id @default(uuid())
+  serverId  String
+  name      String
+  isDefault Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  server   Server    @relation(fields: [serverId], references: [id], onDelete: Cascade)
+  messages Message[]
+}
+
+model Message {
+  id        String   @id @default(uuid())
+  channelId String
+  authorId  String
+  content   String
+  createdAt DateTime @default(now())
+
+  channel Channel @relation(fields: [channelId], references: [id], onDelete: Cascade)
+  author  User    @relation(fields: [authorId], references: [id])
+
+  @@index([channelId, createdAt])
+}
+
+model Invite {
+  id        String    @id @default(uuid())
+  serverId  String
+  code      String    @unique // token que vai na URL
+  createdBy String
+  expiresAt DateTime? // null = não expira
+  maxUses   Int? // null = ilimitado
+  uses      Int       @default(0)
+  createdAt DateTime  @default(now())
+
+  server  Server @relation(fields: [serverId], references: [id], onDelete: Cascade)
+  creator User   @relation(fields: [createdBy], references: [id])
+}

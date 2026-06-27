@@ -5,16 +5,15 @@
     "moduleResolution": "NodeNext",
     "outDir": "./dist",
     "rootDir": "./src",
-    "strict": true,                 
+    "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "baseUrl": "./src",
     "ignoreDeprecations": "6.0",
     "paths": {
-      "@domain/*": ["domain/*"],
-      "@application/*": ["application/*"],
-      "@infra/*": ["infrastructure/*"],
+      "@modules/*": ["modules/*"],
+      "@ws/*": ["ws/*"],
       "@shared/*": ["shared/*"]
     }
   },

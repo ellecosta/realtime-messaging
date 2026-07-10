@@ -1,7 +1,8 @@
 import type { Request, Response, NextFunction } from "express";
+import type { ParamsDictionary } from "express-serve-static-core";
 import { AppError } from "./errors/errors";
 
-export interface AuthedRequest extends Request {
+export interface AuthedRequest<P = ParamsDictionary> extends Request<P> {
     userId?: string;
 }
 

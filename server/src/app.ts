@@ -3,6 +3,7 @@ import { authRouter } from "@modules/auth/auth.routes";
 import { meRouter } from "@modules/me/me.routes";
 import { errorHandler } from "@shared/http";
 import { serversRouter } from "@modules/servers/servers.routes";
+import { channelsRouter } from "@modules/channels/channels.routes";
 
 export function createApp() {
     const app = express();
@@ -13,6 +14,8 @@ export function createApp() {
 
     app.use("/auth", authRouter);
 
+    app.use("/servers/:serverId/channels", channelsRouter);
+    
     app.use("/servers", serversRouter);
 
     app.use(meRouter);

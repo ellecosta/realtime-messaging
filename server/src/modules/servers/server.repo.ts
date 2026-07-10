@@ -1,5 +1,5 @@
 import { prisma } from "shared/prisma";
-import type { Server } from "generated/prisma";
+import type { Server, ServerMember } from "generated/prisma";
 
 export const serverRepo = {
     createWithDefaults(data: { name: string; ownerId: string}): Promise<Server> {
@@ -24,6 +24,18 @@ export const serverRepo = {
         return prisma.server.findMany({
             where: { members: { some: { userId } } },
             orderBy: { createdAt: "asc" },
+        });
+    },
+
+    findById(id: string): Promise<Server | null> {
+        return prisma.server.findUnique({
+            where: { id }
+        });
+    },
+
+    findMembership(serverId: string, userId: string): Promise<ServerMember | null> {
+        return prisma.serverMember.findUnique({
+            where: { serverId_userId: { serverId, userId } },
         });
     },
 };

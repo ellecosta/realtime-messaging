@@ -14,4 +14,8 @@ export const channelRepo = {
             data: { serverId: data.serverId, name: data.name, isDefault: false },
         });
     },
+
+    findById(id: string): Promise<Channel | null> {
+        return prisma.channel.findUnique({ where: { id } });
+    },
 };

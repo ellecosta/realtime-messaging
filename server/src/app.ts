@@ -5,6 +5,7 @@ import { errorHandler } from "@shared/http";
 import { serversRouter } from "@modules/servers/servers.routes";
 import { channelsRouter } from "@modules/channels/channels.routes";
 import { invitesRouter, serverInvitesRouter } from "@modules/invites/invites.routes";
+import { messagesRouter } from "@modules/messages/messages.routes";
 
 export function createApp() {
     const app = express();
@@ -22,6 +23,8 @@ export function createApp() {
     app.use("/servers", serversRouter);
 
     app.use("/invites", invitesRouter); 
+
+    app.use("/channels/:channelId/messages", messagesRouter);
 
     app.use(meRouter);
 

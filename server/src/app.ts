@@ -4,6 +4,7 @@ import { meRouter } from "@modules/me/me.routes";
 import { errorHandler } from "@shared/http";
 import { serversRouter } from "@modules/servers/servers.routes";
 import { channelsRouter } from "@modules/channels/channels.routes";
+import { invitesRouter, serverInvitesRouter } from "@modules/invites/invites.routes";
 
 export function createApp() {
     const app = express();
@@ -14,9 +15,13 @@ export function createApp() {
 
     app.use("/auth", authRouter);
 
+    app.use("/servers/:serverId/invites", serverInvitesRouter); 
+
     app.use("/servers/:serverId/channels", channelsRouter);
     
     app.use("/servers", serversRouter);
+
+    app.use("/invites", invitesRouter); 
 
     app.use(meRouter);
 

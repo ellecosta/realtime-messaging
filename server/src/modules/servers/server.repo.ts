@@ -38,4 +38,8 @@ export const serverRepo = {
             where: { serverId_userId: { serverId, userId } },
         });
     },
+
+    addMember(data: { serverId: string; userId: string; role: "OWNER" | "MEMBER" }) {
+        return prisma.serverMember.create({ data });
+    },
 };

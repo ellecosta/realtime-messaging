@@ -11,6 +11,7 @@ export type MessageWithAuthor = {
 
 export interface MessageRepository {
     listByChannel(channelId: string, opts: { before?: string; limit: number },): Promise<MessageWithAuthor[]>;
+    save(data: { channelId: string; authorId: string; content: string; }): Promise<MessageWithAuthor>;
 }
 
 export const messageRepo: MessageRepository = {
@@ -20,6 +21,15 @@ export const messageRepo: MessageRepository = {
             orderBy: [{ createdAt: "desc" }, { id: "desc" }],
             take: limit + 1,
             ...(before ? { cursor: { id: before }, skip: 1 } : {}),
+            include: {
+                author: { select: { id: true, username: true } },
+            },
+        });
+    },
+
+    save(data) {
+        return prisma.message.create({
+            data, 
             include: {
                 author: { select: { id: true, username: true } },
             },

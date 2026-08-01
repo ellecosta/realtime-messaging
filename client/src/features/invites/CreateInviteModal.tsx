@@ -1,5 +1,6 @@
 import { useState, type FormEvent } from "react";
 import { api } from "../../lib/http";
+import "../chat/chat.css";
 
 interface Props {
     serverId: string;
@@ -51,7 +52,7 @@ export function CreateInviteModal({ serverId, onClose }: Props) {
                 <h2>Gerar Convite</h2>
 
                 {result ? (
-                    <div>
+                    <div className="modal-result">
                         <p>Link do convite:</p>
                         <input
                             type="text"
@@ -59,10 +60,12 @@ export function CreateInviteModal({ serverId, onClose }: Props) {
                             readOnly
                             onClick={(e) => (e.target as HTMLInputElement).select()}
                         />
-                        <button onClick={() => { navigator.clipboard.writeText(inviteLink); }}>
-                            Copiar
-                        </button>
-                        <button onClick={onClose}>Fechar</button>
+                        <div className="modal-actions">
+                            <button type="submit" onClick={() => { navigator.clipboard.writeText(inviteLink); }}>
+                                Copiar link
+                            </button>
+                            <button type="button" onClick={onClose}>Fechar</button>
+                        </div>
                     </div>
                 ) : (
                     <form onSubmit={handleSubmit}>
@@ -94,10 +97,12 @@ export function CreateInviteModal({ serverId, onClose }: Props) {
 
                         {error && <p className="error">{error}</p>}
 
-                        <button type="submit" disabled={loading}>
-                            {loading ? "Gerando..." : "Gerar convite"}
-                        </button>
-                        <button type="button" onClick={onClose}>Cancelar</button>
+                        <div className="modal-actions">
+                            <button type="submit" disabled={loading}>
+                                {loading ? "Gerando..." : "Gerar convite"}
+                            </button>
+                            <button type="button" onClick={onClose}>Cancelar</button>
+                        </div>
                     </form>
                 )}
             </div>

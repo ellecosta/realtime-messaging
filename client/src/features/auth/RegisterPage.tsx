@@ -1,6 +1,7 @@
 import { useState, type FormEvent } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "./AuthContext";
+import logo from "../../assets/logo2.png"
 import "./auth.css"
 
 export function RegisterPage() {
@@ -43,52 +44,60 @@ export function RegisterPage() {
 
     return (
         <div className="auth-page">
-            <h1>Criar Conta</h1>
+            <div className="auth-header">
+                <Link to="/welcome"><img src={logo} alt="Hive" className="auth-logo"/></Link>
+                <p className="slogan">Every message finds its hive</p>
+            </div>
 
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label htmlFor="email">Email</label>
-                    <input
-                        id="email"
-                        type="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        placeholder="seu@email.com"
-                    />
-                </div>
+            <div className="auth-card">
+                <h2>Crie sua conta</h2>
+                <p className="subtitle">Junte-se à comunidade</p>
 
-                <div>
-                    <label htmlFor="username">Username</label>
-                    <input
-                        id="username"
-                        type="text"
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
-                        placeholder="seu nome"
-                    />
-                </div>
+                <form onSubmit={handleSubmit}>
+                    <div>
+                        <label htmlFor="email">Email</label>
+                        <input
+                            id="email"
+                            type="email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            placeholder="seu@email.com"
+                        />
+                    </div>
 
-                <div>
-                    <label htmlFor="password">Senha</label>
-                    <input
-                        id="password"
-                        type="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        placeholder="mínimo 6 caracteres"
-                    />
-                </div>
+                    <div>
+                        <label htmlFor="username">Username</label>
+                        <input
+                            id="username"
+                            type="text"
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
+                            placeholder="seu nome"
+                        />
+                    </div>
 
-                {error && <p className="error">{error}</p>}
+                    <div>
+                        <label htmlFor="password">Senha</label>
+                        <input
+                            id="password"
+                            type="password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            placeholder="mínimo 6 caracteres"
+                        />
+                    </div>
 
-                <button type="submit" disabled={loading}>
-                    {loading ? "Criando..." : "Criar conta"}
-                </button>
-            </form>
+                    {error && <p className="error">{error}</p>}
 
-            <p>
-                Já tem conta? <Link to="/login">Fazer login</Link>
-            </p>
+                    <button type="submit" disabled={loading}>
+                        {loading ? "Criando..." : "Criar conta"}
+                    </button>
+                </form>
+
+                <p>
+                    Já tem conta? <Link to="/login">Fazer login</Link>
+                </p>
+            </div>
         </div>
     );
 }

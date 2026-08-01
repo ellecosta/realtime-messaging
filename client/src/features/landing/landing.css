@@ -1,0 +1,174 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
+
+.landing {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    background: #000000;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='49' viewBox='0 0 28 49'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%23f5b731' fill-opacity='0.02'%3E%3Cpath d='M13.99 9.25l13 7.5v15l-13 7.5L1 31.75v-15l12.99-7.5zM3 17.9v12.7l10.99 6.34 11-6.35V17.9l-11-6.34L3 17.9zM0 15l12.98-7.5V0h-2v6.35L0 12.69v2.3zm0 18.5L12.98 41v8h-2v-6.85L0 35.81v-2.3zM15 0v7.5L27.99 15H28v-2.31h-.01L17 6.35V0h-2zm0 49v-8l12.99-7.5H28v2.31h-.01L17 42.15V49h-2z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    background-size: 45px auto;
+    color: #f0f0f0;
+    position: relative;
+    overflow: hidden;
+}
+
+.landing-nav {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding: 5px 70px;
+    padding-bottom: 0px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    border-bottom: none;
+}
+
+.nav-logo img {
+    height: 70px;
+}
+
+.hero {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    flex: 1;
+    padding: 120px 24px 80px;
+    max-width: 700px;
+}
+
+.hero-icon-wrapper {
+    position: relative;
+    margin-bottom: 48px;
+}
+
+.hero-icon-wrapper::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(245, 183, 49, 0.28) 0%, rgba(245, 183, 49, 0.1) 40%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+.hero-icon {
+    width: 140px;
+    height: 140px;
+    object-fit: contain;
+    position: relative;
+    z-index: 1;
+    animation: float 4s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-12px);
+    }
+}
+
+.hero-headline {
+    font-size: 2.5rem;
+    font-weight: 800;
+    line-height: 1.15;
+    margin: 0 0 24px;
+    letter-spacing: -1px;
+    font-family: 'Inter', sans-serif;
+}
+
+.hero-highlight {
+    color: #f5b731;
+    text-shadow: 0 0 8px rgba(245, 183, 49, 0.3), 0 0 20px rgba(245, 183, 49, 0.15);
+}
+
+.hero-description {
+    font-size: 1.05rem;
+    color: #8a8a9a;
+    line-height: 1.7;
+    max-width: 520px;
+    margin: 0 0 40px;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 16px;
+}
+
+.btn-primary {
+    padding: 12px 28px;
+    background: #f5b731;
+    color: #000000;
+    font-size: 0.95rem;
+    font-weight: 700;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: opacity 0.2s, box-shadow 0.2s;
+    box-shadow: 0 0 15px rgba(245, 183, 49, 0.4), 0 0 40px rgba(245, 183, 49, 0.15);
+}
+
+.btn-primary:hover {
+    opacity: 0.9;
+    box-shadow: 0 0 20px rgba(245, 183, 49, 0.5), 0 0 50px rgba(245, 183, 49, 0.25);
+}
+
+.btn-secondary {
+    padding: 12px 28px;
+    background: rgba(245, 183, 49, 0.08);
+    color: #f0f0f0;
+    font-size: 0.95rem;
+    font-weight: 600;
+    border-radius: 8px;
+    border: 1px solid #f5b731;
+    text-decoration: none;
+    transition: background 0.2s, box-shadow 0.2s;
+    box-shadow: 0 0 15px rgba(245, 183, 49, 0.1), inset 0 0 15px rgba(245, 183, 49, 0.03);
+}
+
+.btn-secondary:hover {
+    background: rgba(245, 183, 49, 0.12);
+    box-shadow: 0 0 20px rgba(245, 183, 49, 0.2), inset 0 0 20px rgba(245, 183, 49, 0.05);
+}
+
+.landing-footer {
+    padding: 24px;
+    text-align: center;
+    width: 100%;
+}
+
+.landing-footer p {
+    font-size: 0.8rem;
+    color: #4a4a5a;
+    margin: 0;
+    font-weight: 600;
+}
+
+@media (max-width: 768px) {
+    .hero-headline {
+        font-size: 2rem;
+    }
+
+    .hero-icon {
+        width: 100px;
+        height: 100px;
+    }
+
+    .hero-buttons {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .btn-primary,
+    .btn-secondary {
+        text-align: center;
+    }
+}

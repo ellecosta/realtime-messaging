@@ -336,6 +336,13 @@ export function ChatProvider({ children }: { children: ReactNode }) {
         if (token) loadServers();
     }, [token]);
 
+    // Auto-selecionar o primeiro servidor quando a lista carrega
+    useEffect(() => {
+        if (state.servers.length > 0 && !state.currentServerId) {
+            selectServer(state.servers[0].id);
+        }
+    }, [state.servers]);
+
     return (
         <ChatContext.Provider value={{ state, loadServers, selectServer, selectChannel, loadOlderMessages, sendMessage, createServer, createChannel }}>
             {children}

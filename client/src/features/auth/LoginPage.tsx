@@ -1,6 +1,7 @@
 import { useState, type FormEvent } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { useAuth } from "./AuthContext";
+import logo from "../../assets/logo2.png" 
 import "./auth.css"
 
 export function LoginPage() {
@@ -13,6 +14,7 @@ export function LoginPage() {
 
     const { login } = useAuth();
     const navigate = useNavigate();
+    const [searchParams] = useSearchParams();
 
     async function handleSubmit(e: FormEvent) {
         e.preventDefault();
@@ -26,7 +28,8 @@ export function LoginPage() {
         setLoading(true);
         try {
             await login(email, password);
-            navigate("/");
+            const redirect = searchParams.get("redirect") ?? "/";
+            navigate(redirect);
         } catch (err: any) {
             setError(err.message ?? "Erro ao fazer login");
         } finally {
@@ -36,9 +39,15 @@ export function LoginPage() {
 
     return (
         <div className="auth-page">
-            <h1>Login</h1>
+            <div className="auth-header">
+                <Link to="/welcome"><img src={logo} alt="Hive" className="auth-logo"/></Link>
+                <p className="slogan">Every message finds its hive</p>
+            </div>
 
-            <form onSubmit={handleSubmit}>
+            <div className="auth-card">
+                <h2>Que bom que voltou!</h2>
+                <p className="subtitle">Entre e comece a conversar</p>
+                <form onSubmit={handleSubmit}>
                 <div>
                     <label htmlFor="email">Email</label>
                     <input
@@ -59,6 +68,7 @@ export function LoginPage() {
                         onChange={(e) => setPassword(e.target.value)}
                         placeholder="••••••"
                     />
+                    <a href="#" className="forgot-password">Esqueceu sua senha?</a>
                 </div>
 
                 {error && <p className="error">{error}</p>}
@@ -71,6 +81,9 @@ export function LoginPage() {
             <p>
                 Não tem conta? <Link to="/register">Criar conta</Link>
             </p>
+
+            </div>
+            
         </div>
     );
 }
